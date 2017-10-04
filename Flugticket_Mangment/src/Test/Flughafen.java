@@ -1,42 +1,41 @@
 package Test;
 
+import java.util.Hashtable;
+
 public class Flughafen {
 	
 	String Land;
-	String Stadt;
-	String	airportcode;
 	String name;
+	String FlullLand;
+	Hashtable<String,String> airportcode = new Hashtable<String, String>();
+	Hashtable<String, Hashtable> flughafen1 = new Hashtable<String, Hashtable>();
 	
-	public Flughafen(String Land, String Stadt, String airportcode,String name) {
-		this.Land = Land;
-		this.Stadt = Stadt;
-		this.airportcode = airportcode;
+
+	public Flughafen(String Land, Hashtable<String,String> s, String name, String FullLand) {
+		this.airportcode = s;
+		flughafen1.put(Land, s);
 		this.name = name;
+		this.FlullLand = FullLand;
 	}
 
 	public String getLand() {
 		return Land;
 	}
+	
+	public String getFlullLand() {
+		return FlullLand;
+	}
+
+
+	public void setFlullLand(String flullLand) {
+		FlullLand = flullLand;
+	}
+
 
 	public void setLand(String land) {
 		Land = land;
 	}
 
-	public String getStadt() {
-		return Stadt;
-	}
-
-	public void setStadt(String stadt) {
-		Stadt = stadt;
-	}
-
-	public String getAirportcode() {
-		return airportcode;
-	}
-
-	public void setAirportcode(String airportcode) {
-		this.airportcode = airportcode;
-	}
 
 	public String getName() {
 		return name;
