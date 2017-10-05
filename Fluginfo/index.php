@@ -14,9 +14,6 @@ catch(PDOException $e)
    fwrite ($handle, $inhalt);
    fclose ($handle);
 
-   /*Zurückleiten zur Landingpage um die Daten nochmals einzugeben*/
-   //header ( 'Location: index.php' );
-
    }
 
 
@@ -42,13 +39,16 @@ catch(PDOException $e)
    }
 
 if(isset($_POST['flugnr'])){
+  /*Hier gelangt man rein, wenn der User die Flugnummer ausgewählt und auf suchen gedrückt hat.
+  Dann ist die $_POST variable isset true*/
   $flightnr = $_POST['flugnr'];
-  /*Hier schreibe ich mir die Flugnummer in eine Datei, um sie bei einem Reload der Webseite wieder auszulesen.*/
+  /*Hier schreibe ich mir die Flugnummer in eine Datei, um sie bei einem Reload der Webseite wieder ohne Userinput auslesen lassen zu können.*/
   $handle = fopen("flughilfe.txt", "w");
   fwrite ($handle, $flightnr);
   fclose ($handle);
 }else{
-  /*Hier lese ich die Flugnummer aus der Datei aus.*/
+  /*Hier komme ich rein wenn der User die Flugnummer nicht gerade gesucht hat. Bedeutet nach dem Seitenreload, der gezwungener Maßen nach dem Löschen
+  eines Benutzers erfolgt, wird hier die Flugnummer ausgelesen, damit er es selber nicht noch einmal auswählen muss.*/
   $handle = fopen("flughilfe.txt", "r");
   while( $inhalt = fgets($handle, 4096)){
     $flightnr = $inhalt;
@@ -65,7 +65,7 @@ if(isset($_POST['flugnr'])){
   </head>
   <body>
 
-
+<!-- $_SERVER['PHP_SELF'] wird verwendet um dem Server zu sagen, dass er im PHP Code von dieser Datei das findet was er sucht.-->
 <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
     <div class='container'style='margin-top: 25px'>
      <div class='row text-center'>
@@ -159,6 +159,7 @@ if(isset($_POST['flugnr'])){
      }
      ?></h2>
      <hr>
+
    </div>
  </div>
  <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
